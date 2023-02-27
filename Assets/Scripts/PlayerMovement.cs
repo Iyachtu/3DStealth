@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rb;
     private Vector2 _pMovement;
     [SerializeField] private InputActionReference _moveInput, _jumpInput, _runInput, _sneakInput;
+    private bool _isgrounded, _isjumping;
 
     [SerializeField] private float _rotationSmoothTime = 0.1f;
     float turnSmoothVelocity;
@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         GetInput();
+        if (_isgrounded == false) CheckGround();
     }
 
     private void FixedUpdate()
@@ -64,7 +65,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        _isjumping= true;
+    }
 
+    private void CheckGround()
+    {
+        
     }
 
     private void OnStateEnter()
@@ -122,19 +128,40 @@ public class PlayerMovement : MonoBehaviour
         switch (_currentState)
         {
             case PlayerStateMode.IDLE:
+                if (_isgrounded == false) TransitionToState(PlayerStateMode.FALLING);
+                else if (_pMovement.magnitude > 0.1f) TransitionToState(PlayerStateMode.MOVING);
                 break;
             case PlayerStateMode.RUNNING:
                 _currentSpeed = _runSpeed;
+                if (_isgrounded==false) TransitionToState(PlayerStateMode.FALLING);
+                else if (_runInput.action.ReadValue<bool>() == false) TransitionToState(PlayerStateMode.MOVING);
+                else if (_jumpInput.action.ReadValue<bool>() == true) TransitionToState(PlayerStateMode.JUMPING);
                 break;
             case PlayerStateMode.FALLING:
+                if (_isgrounded)
+                {
+                    if (_pMovement.magnitude > 0.1f) TransitionToState(PlayerStateMode.MOVING);
+                    else TransitionToState(PlayerStateMode.IDLE);
+                }
                 break;
             case PlayerStateMode.MOVING:
                 _currentSpeed = _moveSpeed;
+                if (_isgrounded == false) TransitionToState(PlayerStateMode.FALLING);
+                else if (_sneakInput.action.ReadValue<bool>()) TransitionToState(PlayerStateMode.SNEAKING);
+                else if (_jumpInput.action.ReadValue<bool>()) TransitionToState(PlayerStateMode.JUMPING);
+                else if (_runInput.action.ReadValue<bool>()) TransitionToState(PlayerStateMode.RUNNING);
                 break;
             case PlayerStateMode.SNEAKING:
                 _currentSpeed = _sneakSpeed;
+                if (_isgrounded ==false) TransitionToState(PlayerStateMode.FALLING);
+                else if (_sneakInput.action.ReadValue<bool>() == false) TransitionToState(PlayerStateMode.MOVING);
                 break;
             case PlayerStateMode.JUMPING:
+                if (_isgrounded == false && _isjumping == false) TransitionToState(PlayerStateMode.FALLING);
+                else if (_isgrounded)
+                {
+                    //à finir
+                }
                 break;
             default:
                 break;
