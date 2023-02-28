@@ -18,19 +18,19 @@ public class PlayerMovement : MonoBehaviour
     float turnSmoothVelocity;
     [SerializeField] private Transform _camera;
     [SerializeField] private float _raycastLength;
-    [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private LayerMask _groundMask;
 
     [SerializeField] private GameObject _kneeCast, _feetCast;
     [SerializeField] float _stepHeight = 0.45f;
     [SerializeField] float _stepSmooth = 0.5f;
 
-    [SerializeField] GameObject[] _raycastArray;
+    [SerializeField] Transform _groundChecker;
+    [SerializeField] Vector3 _boxDimension;
 
     private void Awake()
     {
         _playerAnimator = GetComponentInChildren<Animator>();
         _rb = GetComponent<Rigidbody>();
-        _isgrounded = true;
         _kneeCast.transform.position = new Vector3 (_feetCast.transform.position.x, _feetCast.transform.position.y+_stepHeight,_feetCast.transform.position.z);
     }
 
@@ -125,18 +125,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckGround()
     {
-        RaycastHit hit;
-        Physics.Raycast(transform.position, Vector3.down, out hit,_raycastLength);
-        if (hit.collider != null && hit.collider.CompareTag("Ground")) { _isgrounded = true; _isjumping = false; }
-        else if (hit.collider == null) _isgrounded = false;
-        Debug.Log(_isgrounded);
+        //RaycastHit hit;
+        //Physics.Raycast(transform.position, Vector3.down, out hit,_raycastLength);
+        //if (hit.collider != null && hit.collider.CompareTag("Ground")) { _isgrounded = true; _isjumping = false; }
+        //else if (hit.collider == null) _isgrounded = false;
+        //Debug.Log(_isgrounded);
+        Collider[] groundcolliders = Physics.OverlapBox(_groundChecker.position, _boxDimension/2, Quaternion.identity, _groundMask);
+
+        _isgrounded = groundcolliders.Length > 0;
+
+        if (_isgrounded)
+        {
+            Debug.Log("touche le sol");
+        }
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Vector3 direction = new Vector3 (0,1,0);
+        Vector3 direction = new Vector3 (0,-0.5f,0);
         Gizmos.DrawRay(transform.position, direction);
+        Gizmos.DrawWireCube(_groundChecker.position, _boxDimension);
     }
 
     private void OnStateEnter()
