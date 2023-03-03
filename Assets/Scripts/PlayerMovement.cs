@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private PlayerStateMode _currentState;
     [SerializeField] private float _moveSpeed, _runSpeed, _sneakSpeed, _currentSpeed, _jumpForce;
-    private Animator _playerAnimator;
+    [SerializeField] private Animator _playerAnimator;
     private Rigidbody _rb;
     private Vector2 _pMovement;
     [SerializeField] private InputActionReference _moveInput, _jumpInput, _runInput, _sneakInput;
@@ -27,9 +27,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform _groundChecker;
     [SerializeField] Vector3 _boxDimension;
 
+    private RaycastHit _slopeHit;
+    private bool _onSlope;
+    private Vector3 _slopeMoveDir;
+    [SerializeField] float _slopeMaxAngle;
+
     private void Awake()
     {
-        _playerAnimator = GetComponentInChildren<Animator>();
+        //_playerAnimator = GetComponentInChildren<Animator>();
         _rb = GetComponent<Rigidbody>();
         _kneeCast.transform.position = new Vector3 (_feetCast.transform.position.x, _feetCast.transform.position.y+_stepHeight,_feetCast.transform.position.z);
     }
@@ -47,14 +52,25 @@ public class PlayerMovement : MonoBehaviour
         CheckGround();
         OnStateUpdate();
         Debug.Log(_currentState);
+        _slopeMoveDir = Vector3.ProjectOnPlane(_pMovement, _slopeHit.normal);
     }
 
     private void FixedUpdate()
     {
         if (_pMovement.magnitude >0.1f)
         {
-            Move();
-            //Climb();
+            _onSlope = OnSlope();
+            if (_onSlope)
+            {
+                float angle = AngleCalc();
+                SlopeMove(angle);
+                //Move();
+            }
+            else if (!_onSlope)
+            {
+                Move();
+                Climb();
+            }
         }
         else
         {
@@ -62,9 +78,31 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private bool OnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out _slopeHit, 1.25f))
+        {
+            if (_slopeHit.normal != Vector3.up) return true;
+            else return false;
+        }
+
+        return false;
+    }
+
+    private float AngleCalc()
+    {
+        float angle=0;
+        //angle = Mathf.Abs( Vector3.Angle(_slopeHit.normal, Vector3.forward) - 90);
+        angle = Mathf.Abs( Vector3.Angle(_slopeHit.normal, Vector3.up));
+        Debug.Log(angle);
+        return angle;
+    }
+
     private void GetInput()
     {
         _pMovement = _moveInput.action.ReadValue<Vector2>();
+        _playerAnimator.SetFloat("DirX", _pMovement.x);
+        _playerAnimator.SetFloat("DirY", _pMovement.y);
         //Debug.Log(_pMovement.magnitude);
     }
 
@@ -79,6 +117,29 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log(moveDir);
         _rb.velocity = moveDir.normalized * _currentSpeed;
         _rb.velocity = new Vector3(_rb.velocity.x, test, _rb.velocity.z);
+    }
+
+    private void SlopeMove(float angle)
+    {
+        if (Mathf.Sign(_pMovement.y) == Mathf.Sign(_slopeHit.normal.z))
+        {
+            if (angle <= _slopeMaxAngle) Debug.Log("petit angle/descente");
+            else
+            {
+                Debug.Log("grand angle / descente");
+            }
+                Move();
+        }
+        else
+        {
+            if (angle <= _slopeMaxAngle) Debug.Log("petit angle/montée");
+            else
+            {
+                Debug.Log("grand angle / montée");
+            }
+            Move();
+        }
+        
     }
 
     private void Climb()
@@ -136,8 +197,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (_isgrounded)
         {
+            _playerAnimator.SetBool("isGrounded", true);
             Debug.Log("touche le sol");
         }
+        else _playerAnimator.SetBool("isGrounded", false);
     }
 
     private void OnDrawGizmosSelected()
@@ -161,6 +224,7 @@ public class PlayerMovement : MonoBehaviour
                 _playerAnimator.SetBool("isFalling", true);
                 break;
             case PlayerStateMode.MOVING:
+                _playerAnimator.SetBool("isMoving", true);
                 break;
             case PlayerStateMode.SNEAKING:
                 _playerAnimator.SetBool("isSneaking", true);
@@ -187,6 +251,7 @@ public class PlayerMovement : MonoBehaviour
                 _playerAnimator.SetBool("isFalling", false);
                 break;
             case PlayerStateMode.MOVING:
+                _playerAnimator.SetBool("isMoving", false);
                 break;
             case PlayerStateMode.SNEAKING:
                 _playerAnimator.SetBool("isSneaking", false);
@@ -222,9 +287,11 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
             case PlayerStateMode.MOVING:
+                _playerAnimator.SetBool("isMoving",true);
                 _currentSpeed = _moveSpeed;
                 if (_isgrounded == false) TransitionToState(PlayerStateMode.FALLING);
-                else if (_sneakInput.action.ReadValue<float>()>=0.5f) TransitionToState(PlayerStateMode.SNEAKING);
+                else if (_pMovement.magnitude < 0.1f) TransitionToState(PlayerStateMode.IDLE);
+                else if (_sneakInput.action.ReadValue<float>() >= 0.5f) TransitionToState(PlayerStateMode.SNEAKING);
                 else if (_jumpInput.action.ReadValue<float>() >= 0.5f) TransitionToState(PlayerStateMode.JUMPING);
                 else if (_runInput.action.ReadValue<float>() >= 0.5f) TransitionToState(PlayerStateMode.RUNNING);
                 break;
@@ -234,8 +301,8 @@ public class PlayerMovement : MonoBehaviour
                 else if (_sneakInput.action.ReadValue<float>() < 0.5f) TransitionToState(PlayerStateMode.MOVING);
                 break;
             case PlayerStateMode.JUMPING:
-                if (_isgrounded == false && _isjumping == false) TransitionToState(PlayerStateMode.FALLING);
-                else if (_isgrounded)
+                //if (_isgrounded == false && _isjumping == false) TransitionToState(PlayerStateMode.FALLING);
+                /*else*/ if (_isgrounded)
                 {
                     if (_pMovement.magnitude <= 0.1f) TransitionToState(PlayerStateMode.IDLE);
                     else if (_pMovement.magnitude > 0.1f) TransitionToState(PlayerStateMode.MOVING);
