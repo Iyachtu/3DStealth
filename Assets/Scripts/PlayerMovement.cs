@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rb;
     private Vector2 _pMovement;
     [SerializeField] private InputActionReference _moveInput, _jumpInput, _runInput, _sneakInput;
-    private bool _isgrounded, _isjumping;
+    private bool _isgrounded;
 
     [SerializeField] private float _rotationSmoothTime = 0.1f;
     float turnSmoothVelocity;
@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         float test = _rb.velocity.y;
         float targetAngle = Mathf.Atan2(_pMovement.x, _pMovement.y) * Mathf.Rad2Deg + _camera.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, _rotationSmoothTime);
-        transform.rotation = Quaternion.Euler(0, angle, 0);
+        if (_pMovement.y >0.1f ) transform.rotation = Quaternion.Euler(0, angle, 0);
         Vector3 moveDir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
         //if (_isgrounded==false) moveDir = Quaternion.Euler(0, targetAngle, 0) * new Vector3(0, _rb.velocity.y, 1);
         //Debug.Log(moveDir);
@@ -179,9 +179,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        _isjumping= true;
         _rb.AddForce(transform.up * _jumpForce,ForceMode.Impulse);
-        Debug.Log("jump");
     }
 
     private void CheckGround()
