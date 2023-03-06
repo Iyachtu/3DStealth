@@ -3,7 +3,27 @@ guid: a20eb946aabf25f46960b0a6973a91f9
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black
+    second: {fileID: 2100000, guid: c0da4e80636d70d48ab26f8e977cbda1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gray
+    second: {fileID: 2100000, guid: 4b392e6619bb58646aa6e51bc26bb07f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White
+    second: {fileID: 2100000, guid: 6316fd840b270f048899f52464a478b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: e7fe72ee1874f2f49bcac211e3db81a5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -50,7 +70,7 @@ ModelImporter:
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 50
+      lastFrame: 28.5
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

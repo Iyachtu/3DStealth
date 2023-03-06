@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -111,10 +112,8 @@ public class PlayerMovement : MonoBehaviour
         float test = _rb.velocity.y;
         float targetAngle = Mathf.Atan2(_pMovement.x, _pMovement.y) * Mathf.Rad2Deg + _camera.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, _rotationSmoothTime);
-        if (_pMovement.y >0.1f ) transform.rotation = Quaternion.Euler(0, angle, 0);
+        transform.rotation = Quaternion.Euler(0, angle, 0);
         Vector3 moveDir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-        //if (_isgrounded==false) moveDir = Quaternion.Euler(0, targetAngle, 0) * new Vector3(0, _rb.velocity.y, 1);
-        //Debug.Log(moveDir);
         _rb.velocity = moveDir.normalized * _currentSpeed;
         _rb.velocity = new Vector3(_rb.velocity.x, test, _rb.velocity.z);
     }
