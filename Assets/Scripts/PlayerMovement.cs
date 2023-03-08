@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rb;
     private Vector2 _pMovement;
     [SerializeField] private InputActionReference _moveInput, _jumpInput, _runInput, _sneakInput;
-    private bool _isgrounded;
+    private bool _isgrounded, _isJumping;
 
     [SerializeField] private float _rotationSmoothTime = 0.1f;
     float turnSmoothVelocity;
@@ -50,9 +50,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         GetInput();
-        CheckGround();
+        if (!_isJumping) CheckGround();
         OnStateUpdate();
-        Debug.Log(_currentState);
         _slopeMoveDir = Vector3.ProjectOnPlane(_pMovement, _slopeHit.normal);
     }
 
@@ -178,16 +177,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        _isJumping = true;
         _rb.AddForce(transform.up * _jumpForce,ForceMode.Impulse);
+        StartCoroutine(JumpTimer());
     }
 
     private void CheckGround()
     {
-        //RaycastHit hit;
-        //Physics.Raycast(transform.position, Vector3.down, out hit,_raycastLength);
-        //if (hit.collider != null && hit.collider.CompareTag("Ground")) { _isgrounded = true; _isjumping = false; }
-        //else if (hit.collider == null) _isgrounded = false;
-        //Debug.Log(_isgrounded);
         Collider[] groundcolliders = Physics.OverlapBox(_groundChecker.position, _boxDimension/2, Quaternion.identity, _groundMask);
 
         _isgrounded = groundcolliders.Length > 0;
@@ -298,8 +294,7 @@ public class PlayerMovement : MonoBehaviour
                 else if (_sneakInput.action.ReadValue<float>() < 0.5f) TransitionToState(PlayerStateMode.MOVING);
                 break;
             case PlayerStateMode.JUMPING:
-                //if (_isgrounded == false && _isjumping == false) TransitionToState(PlayerStateMode.FALLING);
-                /*else*/ if (_isgrounded)
+                if (_isgrounded)
                 {
                     if (_pMovement.magnitude <= 0.1f) TransitionToState(PlayerStateMode.IDLE);
                     else if (_pMovement.magnitude > 0.1f) TransitionToState(PlayerStateMode.MOVING);
@@ -319,12 +314,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        //if(collision.collider.CompareTag("Ground")) _isgrounded= true;
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        //if (collision.collider.CompareTag("Ground")) _isgrounded= false;
     }
 
+    IEnumerator JumpTimer()
+    {
+        yield return new WaitForSeconds(0.01f);
+        _isJumping = false;
+    }
 }
