@@ -262,6 +262,7 @@ public class PlayerMovement : MonoBehaviour
         switch (_currentState)
         {
             case PlayerStateMode.IDLE:
+                _rb.velocity = Vector3.zero;
                 if (_isgrounded == false) TransitionToState(PlayerStateMode.FALLING);
                 else if (_pMovement.magnitude > 0.1f) TransitionToState(PlayerStateMode.MOVING);
                 else if (_jumpInput.action.ReadValue<float>() >= 0.5f) TransitionToState(PlayerStateMode.JUMPING);
@@ -269,7 +270,7 @@ public class PlayerMovement : MonoBehaviour
             case PlayerStateMode.RUNNING:
                 _currentSpeed = _runSpeed;
                 if (_isgrounded==false) TransitionToState(PlayerStateMode.FALLING);
-                else if (_runInput.action.ReadValue<float>() <0.5f) TransitionToState(PlayerStateMode.MOVING);
+                else if (_runInput.action.ReadValue<float>() <0.5f || _pMovement.magnitude<0.1f) TransitionToState(PlayerStateMode.MOVING);
                 else if (_jumpInput.action.ReadValue<float>() >= 0.5f) TransitionToState(PlayerStateMode.JUMPING);
                 break;
             case PlayerStateMode.FALLING:
@@ -291,7 +292,7 @@ public class PlayerMovement : MonoBehaviour
             case PlayerStateMode.SNEAKING:
                 _currentSpeed = _sneakSpeed;
                 if (_isgrounded ==false) TransitionToState(PlayerStateMode.FALLING);
-                else if (_sneakInput.action.ReadValue<float>() < 0.5f) TransitionToState(PlayerStateMode.MOVING);
+                else if (_sneakInput.action.ReadValue<float>() < 0.5f || _pMovement.magnitude <0.1f) TransitionToState(PlayerStateMode.MOVING);
                 break;
             case PlayerStateMode.JUMPING:
                 if (_isgrounded)
