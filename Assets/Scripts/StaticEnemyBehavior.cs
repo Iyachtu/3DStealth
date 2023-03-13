@@ -75,13 +75,13 @@ public class StaticEnemyBehavior : MonoBehaviour
 
     private void Move()
     {
-        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(_waypoints[_currentWP].position.x, _waypoints[_currentWP].position.z)) <= _WPdistanceTolerance)
-        {
-            _currentWP++;
-            if (_currentWP == _waypoints.Length) _currentWP = 0;
-            _navAgent.SetDestination(_waypoints[_currentWP].position);
-        }
-        else _navAgent.SetDestination(_waypoints[_currentWP].position);
+        //if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(_waypoints[_currentWP].position.x, _waypoints[_currentWP].position.z)) <= _WPdistanceTolerance)
+        //{
+        //    _currentWP++;
+        //    if (_currentWP == _waypoints.Length) _currentWP = 0;
+        //    _navAgent.SetDestination(_waypoints[_currentWP].position);
+        //}
+        //else _navAgent.SetDestination(_waypoints[_currentWP].position);
 
     }
 

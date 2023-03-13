@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public enum PlayerStateMode { IDLE, MOVING, RUNNING, JUMPING, FALLING, SNEAKING}
-public class PlayerMovement : MonoBehaviour
+public class PlayerMove : MonoBehaviour
 {
     private PlayerStateMode _currentState;
     [SerializeField] private float _moveSpeed, _runSpeed, _sneakSpeed, _currentSpeed, _jumpForce;
