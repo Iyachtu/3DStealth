@@ -8,6 +8,8 @@ public enum PatrolState { Spotting, Looking, Following, Running}
 
 public class PatrollingEnemyBehavior : MonoBehaviour
 {
+    [SerializeField] private BoolVariables _isHidden;
+
     private NavMeshAgent _navAgent;
     private PatrolState _currentState;
 

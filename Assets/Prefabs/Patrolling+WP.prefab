@@ -209,23 +209,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7520502818430470253, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
       propertyPath: m_VersionIndex
-      value: 2923
+      value: 2929
       objectReference: {fileID: 0}
     - target: {fileID: 7520502818430470254, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7520502818812410508, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
-      propertyPath: _runTimer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7520502818812410508, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
-      propertyPath: _rayLayerMask.m_Bits
-      value: 72
-      objectReference: {fileID: 0}
-    - target: {fileID: 7520502818812410508, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
-      propertyPath: _waypoints.Array.size
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7520502818812410508, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
       propertyPath: _waypoints.Array.data[0]

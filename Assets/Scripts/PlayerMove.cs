@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public enum PlayerStateMode { IDLE, MOVING, RUNNING, JUMPING, FALLING, SNEAKING}
 public class PlayerMove : MonoBehaviour
 {
+    [SerializeField] BoolVariables _isHidden;
+
     private PlayerStateMode _currentState;
     [SerializeField] private float _moveSpeed, _runSpeed, _sneakSpeed, _currentSpeed, _jumpForce;
     [SerializeField] private Animator _playerAnimator;
@@ -35,6 +37,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Awake()
     {
+        _isHidden.value = false;
         //_playerAnimator = GetComponentInChildren<Animator>();
         _rb = GetComponent<Rigidbody>();
         _kneeCast.transform.position = new Vector3 (_feetCast.transform.position.x, _feetCast.transform.position.y+_stepHeight,_feetCast.transform.position.z);
@@ -281,7 +284,6 @@ public class PlayerMove : MonoBehaviour
                 }
                 break;
             case PlayerStateMode.MOVING:
-                _playerAnimator.SetBool("isMoving",true);
                 _currentSpeed = _moveSpeed;
                 if (_isgrounded == false) TransitionToState(PlayerStateMode.FALLING);
                 else if (_pMovement.magnitude < 0.1f) TransitionToState(PlayerStateMode.IDLE);

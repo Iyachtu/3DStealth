@@ -11,17 +11,20 @@ public enum CameraState {Move, Stop, Lock}
 
 public class CamBehavior : MonoBehaviour
 {
+    [SerializeField] private BoolVariables _isHidden;
+    [SerializeField] private float _hiddenRayDistance;
     [SerializeField] private float _startRotationAngle, _endRotationAngle;
     [SerializeField] private float _rotationTime;
     [SerializeField] private float _stopTime;
     [SerializeField] private float _alarmTimer;
+    [SerializeField] private float _xRotation;
     private bool _playerLock = false;
     private bool _toMove = false;
     private bool _moveForward = true;
     private float _targetAngle;
     private float t;
     private CameraState _currentState;
-    [SerializeField] private bool _isActive;
+    [SerializeField] public bool _isActive;
     private Transform _playerTransform = null;
     private float _lockCounter;
     [SerializeField] private LayerMask _rayLayerMask;
@@ -30,7 +33,7 @@ public class CamBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.rotation = Quaternion.Euler(0,_startRotationAngle,0);
+        transform.rotation = Quaternion.Euler(_xRotation, _startRotationAngle,0);
         _currentState = CameraState.Stop;
     }
 
@@ -98,7 +101,7 @@ public class CamBehavior : MonoBehaviour
                 _targetAngle = Mathf.LerpAngle(_startRotationAngle, _endRotationAngle, t);
             }
             t = t + (Time.deltaTime/_rotationTime);
-            transform.eulerAngles = new Vector3(0,_targetAngle, 0);
+            transform.eulerAngles = new Vector3(_xRotation,_targetAngle, 0);
         }
 
 
