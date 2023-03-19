@@ -9,7 +9,7 @@ public enum PatrolState { Spotting, Looking, Following, Running}
 public class PatrollingEnemyBehavior : MonoBehaviour
 {
     [SerializeField] private BoolVariables _isHidden;
-
+    [SerializeField] private float _hiddenRayDistance;
     private NavMeshAgent _navAgent;
     private PatrolState _currentState;
 
@@ -47,7 +47,6 @@ public class PatrollingEnemyBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(_currentState);
         Behavior();
     }
 
@@ -100,9 +99,14 @@ public class PatrollingEnemyBehavior : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 rayDir = _playerTransform.position - transform.position;
-        if (Physics.Raycast(transform.position, rayDir, out hit, Mathf.Infinity, _rayLayerMask))
+        if (_isHidden && Physics.Raycast(transform.position, rayDir, out hit, _hiddenRayDistance, _rayLayerMask))
         {
-            Debug.Log(hit.collider.name);
+            _currentState = PatrolState.Looking;
+            _lastSeenPlayer = hit.collider.transform;
+            return true;
+        }
+        else if (Physics.Raycast(transform.position, rayDir, out hit, Mathf.Infinity, _rayLayerMask))
+        {
             if (hit.collider.CompareTag("Player"))
             {
                 _currentState = PatrolState.Looking;

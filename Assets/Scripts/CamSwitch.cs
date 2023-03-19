@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CamSwitch : MonoBehaviour
 {
     [SerializeField] GameObject[] _camList;
-    [SerializeField] private InputActionReference _action;
     private bool _playerNear;
+    [SerializeField] private string _text;
+    [SerializeField] private TMP_Text _textBox;
+    [SerializeField] private GameObject _interface, _player;
 
     private void Awake()
     {
@@ -23,22 +26,28 @@ public class CamSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_playerNear && _action.action.ReadValue<float>()>0.1f)
+        if (_playerNear && _player.GetComponent<PlayerMove>()._actionInput.action.ReadValue<float>()>0.1f)
         {
             DeactivateCam();
+            Destroy(gameObject);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //afficher interface 
-        _playerNear= true;
+        if (other.CompareTag("Player"))
+        {
+            _textBox.text = _text;
+            _interface.SetActive(true);
+            _playerNear= true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        //virer interface
-        _playerNear= false;
+        Debug.Log("ça sort du trigger");
+            _interface.SetActive(false);
+            _playerNear = false;
     }
 
 
@@ -48,8 +57,9 @@ public class CamSwitch : MonoBehaviour
         {
             foreach (var cam in _camList)
             {
-                cam.GetComponent<CamBehavior>()._isActive = false;
+                cam.GetComponentInChildren<CamBehavior>()._isActive = false;
             }
         }
+        _interface.SetActive(false);
     }
 }

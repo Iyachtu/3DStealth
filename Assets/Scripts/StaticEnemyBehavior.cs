@@ -8,6 +8,8 @@ public enum SpottingState { Spotting, Looking, Running }
 
 public class StaticEnemyBehavior : MonoBehaviour
 {
+    [SerializeField] private BoolVariables _isHidden;
+    [SerializeField] private float _hiddenRayDistance;
     private NavMeshAgent _navAgent;
     private PatrolState _currentState;
 
@@ -36,7 +38,6 @@ public class StaticEnemyBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(_currentState);
         Behavior();
     }
 
@@ -89,7 +90,13 @@ public class StaticEnemyBehavior : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 rayDir = _playerTransform.position - transform.position;
-        if (Physics.Raycast(transform.position, rayDir, out hit, Mathf.Infinity, _rayLayerMask))
+        if (_isHidden && Physics.Raycast(transform.position, rayDir, out hit, _hiddenRayDistance, _rayLayerMask))
+        {
+            _currentState = PatrolState.Looking;
+            _lastSeenPlayer = hit.collider.transform;
+            return true;
+        }
+        else if (!_isHidden && Physics.Raycast(transform.position, rayDir, out hit, Mathf.Infinity, _rayLayerMask))
         {
             Debug.Log(hit.collider.name);
             if (hit.collider.CompareTag("Player"))

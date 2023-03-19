@@ -14,7 +14,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private Animator _playerAnimator;
     private Rigidbody _rb;
     private Vector2 _pMovement;
-    [SerializeField] private InputActionReference _moveInput, _jumpInput, _runInput, _sneakInput;
+    [SerializeField] public InputActionReference _moveInput, _jumpInput, _runInput, _sneakInput, _actionInput;
     private bool _isgrounded, _isJumping;
 
     [SerializeField] private float _rotationSmoothTime = 0.1f;
@@ -97,7 +97,6 @@ public class PlayerMove : MonoBehaviour
         float angle=0;
         //angle = Mathf.Abs( Vector3.Angle(_slopeHit.normal, Vector3.forward) - 90);
         angle = Mathf.Abs( Vector3.Angle(_slopeHit.normal, Vector3.up));
-        Debug.Log(angle);
         return angle;
     }
 
@@ -124,19 +123,23 @@ public class PlayerMove : MonoBehaviour
     {
         if (Mathf.Sign(_pMovement.y) == Mathf.Sign(_slopeHit.normal.z))
         {
-            if (angle <= _slopeMaxAngle) Debug.Log("petit angle/descente");
+            if (angle <= _slopeMaxAngle)
+            {
+
+            }
             else
             {
-                Debug.Log("grand angle / descente");
             }
                 Move();
         }
         else
         {
-            if (angle <= _slopeMaxAngle) Debug.Log("petit angle/montée");
+            if (angle <= _slopeMaxAngle)
+            {
+
+            }
             else
             {
-                Debug.Log("grand angle / montée");
             }
             Move();
         }

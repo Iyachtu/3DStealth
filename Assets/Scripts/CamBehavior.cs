@@ -118,17 +118,22 @@ public class CamBehavior : MonoBehaviour
     {
             RaycastHit hit;
             Vector3 rayDir = _playerTransform.position - transform.position;
-            if(Physics.Raycast(transform.position, rayDir, out hit, Mathf.Infinity, _rayLayerMask))
+            if(_isHidden && Physics.Raycast(transform.position, rayDir, out hit, _hiddenRayDistance, _rayLayerMask))
             {
-                Debug.Log(hit.collider.name);
                 if (hit.collider.CompareTag("Player"))
                 {
-                    Debug.Log("vu");
+                    _currentState = CameraState.Lock;
+                    return true;
+                }
+            }
+            else if(!_isHidden && Physics.Raycast(transform.position, rayDir, out hit, Mathf.Infinity, _rayLayerMask))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
                     _currentState= CameraState.Lock;
                     return true;
                 }
             }
-            Debug.Log("pas vu");
             return false;
     }
 
@@ -136,7 +141,6 @@ public class CamBehavior : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("ça collide avec le joueur");
             _playerTransform = other.transform;
             _currentState = CameraState.Lock;
         }

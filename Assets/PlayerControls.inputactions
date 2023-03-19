@@ -194,7 +194,7 @@
                 {
                     "name": "",
                     "id": "472faed1-c072-40b5-840c-377b44c38ccd",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -216,7 +216,7 @@
                 {
                     "name": "",
                     "id": "314a207e-c68a-4ce9-9aba-1e4a1beee274",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -333,28 +333,6 @@
                     "action": "Cam Rotation",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "f5e28563-01a6-4638-b08f-1195cbad504d",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0a9110d0-488a-40de-8bcd-68f84c2e42d2",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "Right Stick",
@@ -480,7 +458,7 @@
                 {
                     "name": "",
                     "id": "f39dc11e-b0bf-4913-bbd5-e6ebebaacd7c",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

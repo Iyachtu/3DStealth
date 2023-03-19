@@ -6,6 +6,7 @@ public class DoorOpening : MonoBehaviour
 {
     private Animator _animator;
     [SerializeField] private BoolVariables _key;
+    [SerializeField] private bool _needKey;
 
     private void Awake()
     {
@@ -14,8 +15,8 @@ public class DoorOpening : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_key==null && other.CompareTag("Player")) _animator.SetBool("OpenDoor", true);
-        else if (_key && other.CompareTag("Player")) _animator.SetBool("OpenDoor", true);
+        if (_needKey==false && other.CompareTag("Player")) _animator.SetBool("OpenDoor", true);
+        else if (_key.value && other.CompareTag("Player")) _animator.SetBool("OpenDoor", true);
     }
 
     private void OnTriggerExit(Collider other)

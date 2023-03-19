@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196755583771950139}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.17, y: 0, z: -0.82}
+  m_LocalPosition: {x: -17.02, y: 0, z: 0.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -123,7 +123,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4060215962478338383}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.46, y: 0, z: 23}
+  m_LocalPosition: {x: 12.78, y: 0, z: -8.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -154,7 +154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5039806535494468287}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.52, y: 0, z: 20.32}
+  m_LocalPosition: {x: -17.03, y: 0, z: -8.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -185,7 +185,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8823252946854467683}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.44, y: 0, z: 0.62}
+  m_LocalPosition: {x: 13.01, y: 0, z: 0.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -209,11 +209,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7520502818430470253, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
       propertyPath: m_VersionIndex
-      value: 2929
+      value: 2980
       objectReference: {fileID: 0}
     - target: {fileID: 7520502818430470254, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7520502818812410508, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
+      propertyPath: _hiddenRayDistance
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7520502818812410508, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
+      propertyPath: _rayLayerMask.m_Bits
+      value: 840
       objectReference: {fileID: 0}
     - target: {fileID: 7520502818812410508, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
       propertyPath: _waypoints.Array.data[0]
@@ -249,7 +257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7520502818812410609, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.91
       objectReference: {fileID: 0}
     - target: {fileID: 7520502818812410609, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
       propertyPath: m_LocalRotation.w

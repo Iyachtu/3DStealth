@@ -1,0 +1,60 @@
+{
+   "dialog":
+   [
+    {
+    "_dialID": 0,
+    "_leftCharSprite2Display": [0,0],
+    "_rightCharSprite2Display": [0,0],
+    "_activeSpeaker":[1,2],
+    "_charName": ["Laharl","Etna"],
+    "_dialArray": ["Laharl blablablablabla","Etna blablabla"],
+    "_responseArray": ["reply1","reply2"]
+    },
+    {
+    "_dialID": 1,
+    "_leftCharSprite2Display": [0,0,0,0,0,0,0,0],
+    "_rightCharSprite2Display":[1,1,1,1,1,1,1,1],
+    "_activeSpeaker":[2,2,2,1,2,1,2,1],
+    "_charName": ["Bandit","Operator","Bandit","Operator","Bandit","Operator","Bandit","Operator","Bandit","Operator","Bandit","Operator","Bandit","Operator","Bandit","Operator"],
+    "_dialArray": ["Hey Bandit, do you remember why we are here?",
+    "The objective is to steal the account book hidden in a safe on the last floor, we'll need it to save your best friend from being condemned for something he never did.",
+    "To achieve it, we first need to get on the first floor by reaching out the stairs without being noticed by the guards or cameras.",
+    "Yeah, yeah, I know.",
+    "As you have no done that kind of mission for a while, remember that you can sneak by pressing A, interact with items with X and Run with B on your Controller!",
+    "I'm not senile yet, I still know how to do it!",
+    "Then, I would suggest you to reach the guard room near you, you should find an access card and a computer with access to the camera there, this will allow you to move to the next room.",
+    "Alright, let's do it!"],
+    "_responseArray": ["reply1","reply2"]
+    },
+    {
+    "_dialID": 2,
+    "_leftCharSprite2Display": [0,0,0],
+    "_rightCharSprite2Display":[1,1,1],
+    "_activeSpeaker":[2,2,1],
+    "_charName": ["Bandit","Operator","Bandit","Operator","Bandit","Operator"],
+    "_dialArray": ["Well done reaching this room without being noticed, there shall be an access card nearby.","Don't forget to check the computer!","I'm on it!"],
+    "_responseArray": ["reply1","reply2"]
+    },
+    {
+    "_dialID": 3,
+    "_leftCharSprite2Display": [0,0,0,0],
+    "_rightCharSprite2Display":[1,1,1,1],
+    "_activeSpeaker":[2,2,2,1],
+    "_charName": ["Bandit","Operator","Bandit","Operator","Bandit","Operator","Bandit","Operator"],
+    "_dialArray": ["This part will be a bit tricky, from what I can see, there is a sleeping guard at the north west of the entrance point where you are.",
+    "He shall have an access key unlocking 2 rooms in the corridor.",
+    "Grab his card and go check these rooms, you should find another access card unlocking the entrance to the room with the stairs for the next floor!",
+    "All clear, thanks for the info!"],
+    "_responseArray": ["reply1","reply2"]
+    },
+    {
+    "_dialID": 4,
+    "_leftCharSprite2Display": [0,0],
+    "_rightCharSprite2Display":[1,1],
+    "_activeSpeaker":[2,1],
+    "_charName": ["Bandit","Operator","Bandit","Operator"],
+    "_dialArray": ["Amazing, you made it to the next floor, it's not finished yet but you are still incredible.","I'm just a bit rusty, but still good enough to do it!"],
+    "_responseArray": ["reply1","reply2"]
+    }
+   ] 
+}

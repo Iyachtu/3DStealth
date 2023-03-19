@@ -49,7 +49,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7520502818430470253, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
       propertyPath: m_VersionIndex
-      value: 2920
+      value: 2929
       objectReference: {fileID: 0}
     - target: {fileID: 7520502818430470254, guid: 52b50de0acf12264fb3c48007598a310, type: 3}
       propertyPath: m_Mesh
@@ -156,9 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c238dfda9378e4cb8ac7ea9b91790a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waypoints: []
-  _WPdistanceTolerance: 0
+  _isHidden: {fileID: 0}
+  _hiddenRayDistance: 8
   _runTimer: 2
   _rayLayerMask:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 840

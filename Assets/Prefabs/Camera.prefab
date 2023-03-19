@@ -492,7 +492,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2591
+  m_VersionIndex: 2624
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -703,7 +703,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2189157692437744515}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
   m_LocalPosition: {x: 0, y: -0.1212, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -711,7 +711,7 @@ Transform:
   - {fileID: 691694017105977609}
   m_Father: {fileID: 6902313103760287386}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
 --- !u!114 &1162880250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -725,15 +725,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isHidden: {fileID: 11400000, guid: 47d171bff0e8b294390a37885e71cff6, type: 2}
-  _startRotationAngle: -60
-  _endRotationAngle: 60
+  _hiddenRayDistance: 12
+  _startRotationAngle: 90
+  _endRotationAngle: 160
   _rotationTime: 5
   _stopTime: 1
   _alarmTimer: 2
+  _xRotation: 15
   _isActive: 1
   _rayLayerMask:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 840
 --- !u!54 &1162880251
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1071,7 +1073,7 @@ Transform:
   m_GameObject: {fileID: 6754014424593516323}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -14.798496, y: 4.308503, z: -21.346436}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 2.4999998, y: 2.5, z: 2.4999998}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2035424663545668057}
